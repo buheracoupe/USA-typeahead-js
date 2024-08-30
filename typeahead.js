@@ -2,14 +2,12 @@ const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb
 const searchInput = document.querySelector(".search");
 const suggestions = document.querySelector(".suggestions");
 
+
 const cities = [];
 fetch(endpoint)
 .then(response => response.json())
-.then(data => {cities.push(...data)
-const matches = findMatches("New", cities);
-    console.log(matches);});
+.then(data => {cities.push(...data)});
 
- console.log(cities)
 
 const findMatches = (matchText, cities) => {
     const regex = new RegExp(matchText, "i");
@@ -18,13 +16,18 @@ const findMatches = (matchText, cities) => {
     })
 }
 
-
 const displayMatches = (event) => {
 const userText = event.target.value;
 const matchArray = findMatches(userText, cities);
-console.log(matchArray)
+const html = matchArray
+      .map(place => {
+return `<li><span class="name">${place.city}, ${place.state}</span><span class="population">${place.population}</span></li>`;})
+.join("");
+  console.log(html);
+    suggestions.innerHTML = html;
 }
+
+
 
 searchInput.addEventListener("input", displayMatches)
 
-// searchElement.addEventListener("input", displayArr)
