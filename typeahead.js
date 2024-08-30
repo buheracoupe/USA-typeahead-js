@@ -19,8 +19,12 @@ const findMatches = (matchText, cities) => {
 }
 
 
-const displayMatches = () => {
-
+const displayMatches = (event) => {
+const userText = event.target.value;
+const matchArray = findMatches(userText, cities);
+console.log(matchArray)
 }
+
+searchInput.addEventListener("input", displayMatches)
 
 // searchElement.addEventListener("input", displayArr)
